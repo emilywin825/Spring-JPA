@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,20 +14,23 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+
 class EmployeeRepositoryTest {
-    
+
     @Autowired
     EmployeeRepository employeeRepository;
-    
+
     @Autowired
     DepartmentRepository departmentRepository;
-    
+
     @BeforeEach
-    void bulkInsert(){
-        Department d1=Department.builder()
+    void bulkInsert() {
+
+        Department d1 = Department.builder()
                 .name("영업부")
                 .build();
-        Department d2=Department.builder()
+        Department d2 = Department.builder()
                 .name("개발부")
                 .build();
 
@@ -56,16 +60,18 @@ class EmployeeRepositoryTest {
         employeeRepository.save(e4);
     }
 
+
     @Test
     @DisplayName("특정 사원의 정보 조회")
     void testFindOne() {
         //given
-        Long id=2L;
+        Long id = 2L;
         //when
         Employee employee
-                = employeeRepository.findById(id)
+                = employeeRepository
+                .findById(id)
                 .orElseThrow(
-                        ()->new RuntimeException("사원이 없음") //에러나면 이거 실행
+                        () -> new RuntimeException("사원이 없음")
                 );
         //then
         System.out.println("\n\n\n");
@@ -77,15 +83,19 @@ class EmployeeRepositoryTest {
 
     @Test
     @DisplayName("부서 정보 조회")
-    void testFindDept(){
+    void testFindDept() {
         //given
-        Long id=1L;
+        Long id = 1L;
         //when
-        Department department = departmentRepository.findById(id)
+        Department department = departmentRepository
+                .findById(id)
                 .orElseThrow();
         //then
         System.out.println("\n\n\n");
         System.out.println("department = " + department);
         System.out.println("\n\n\n");
     }
+
+
+
 }
