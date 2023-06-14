@@ -35,5 +35,4 @@ public class PostDetailResponseDTO {
                 .collect(Collectors.toList());
     }
 
-
 }
